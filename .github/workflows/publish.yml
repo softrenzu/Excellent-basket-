@@ -1,0 +1,56 @@
+name: Publish GREEN SIDE and daily blog
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Every day at 10:00 JST (UTC 01:00); GitHub may delay scheduled jobs.
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: green-side-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate today's blog and HTML articles
+        run: python scripts/daily_blog.py
+      - name: Commit newly generated content
+        shell: bash
+        run: |
+          if ! git diff --quiet || [ -n "$(git ls-files --others --exclude-standard site)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add site/data/posts.json site/blog site/sitemap.xml
+            if ! git diff --cached --quiet; then
+              git commit -m "content: publish daily GREEN SIDE journal"
+              git push
+            fi
+          fi
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload website artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
