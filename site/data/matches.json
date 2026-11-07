@@ -1,0 +1,42 @@
+{
+  "verifiedAt": "2026-11-07",
+  "source": "https://yokohama-ex.jp/schedule/calendar/",
+  "matches": [
+    {
+      "date": "2026-11-07",
+      "time": "17:35",
+      "opponent": "越谷アルファーズ",
+      "venue": "横浜武道館"
+    },
+    {
+      "date": "2026-11-08",
+      "time": "15:05",
+      "opponent": "越谷アルファーズ",
+      "venue": "横浜武道館"
+    },
+    {
+      "date": "2026-11-21",
+      "time": "17:35",
+      "opponent": "熊本ヴォルターズ",
+      "venue": "横浜BUNTAI"
+    },
+    {
+      "date": "2026-11-22",
+      "time": "15:05",
+      "opponent": "熊本ヴォルターズ",
+      "venue": "横浜BUNTAI"
+    },
+    {
+      "date": "2026-11-27",
+      "time": "19:05",
+      "opponent": "岐阜スゥープス",
+      "venue": "横浜武道館"
+    },
+    {
+      "date": "2026-11-28",
+      "time": "15:05",
+      "opponent": "岐阜スゥープス",
+      "venue": "横浜武道館"
+    }
+  ]
+}
